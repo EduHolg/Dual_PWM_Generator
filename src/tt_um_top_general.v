@@ -30,7 +30,8 @@ module tt_um_top_general (
   // ui_in[5] -> A
   // ui_in[6] -> B
   // ui_in[7] -> C (spare, currently unused here but kept in _unused tie)
-
+  //
+  
   wire senial_1g, senial_1gn, senial_2g, senial_2gn;
 
   // ----------------------------
