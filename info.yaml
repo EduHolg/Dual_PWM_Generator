@@ -1,9 +1,9 @@
 # Tiny Tapeout project information
 project:
-  title:        "Dual-Channel PWM with SPI Control"
+  title:        "Dual-Channel PWM with SPI Control + Extra Test Logic"
   author:       "Nicolás Romero, Eduardo Holguín"
   discord:      "" 
-  description:  "Two complementary PWM outputs per channel with SPI-configurable duty and edge/center alignment."
+  description:  "Two complementary PWM outputs per channel with SPI-configurable duty and alignment. Unused pins repurposed as gate-level test signals for debugging."
   language:     "Verilog"
   clock_hz:     1000
 
@@ -29,29 +29,29 @@ pinout:
   ui[2]: "MOSI_g"
   ui[3]: "SS_g (active-low)"
   ui[4]: "RESET_g (active-high)"
-  ui[5]: ""
-  ui[6]: ""
-  ui[7]: ""
+  ui[5]: "A (test input)"
+  ui[6]: "B (test input)"
+  ui[7]: "C (test input/spare)"
 
   # Outputs
   uo[0]: "PWM1"
   uo[1]: "PWM1_N"
   uo[2]: "PWM2"
   uo[3]: "PWM2_N"
-  uo[4]: ""
-  uo[5]: ""
-  uo[6]: ""
-  uo[7]: ""
+  uo[4]: "A AND B"
+  uo[5]: "A OR B"
+  uo[6]: "A XOR B"
+  uo[7]: "CLK out (raw)"
 
   # Bidirectional pins
-  uio[0]: ""
-  uio[1]: ""
-  uio[2]: ""
-  uio[3]: ""
-  uio[4]: ""
-  uio[5]: ""
-  uio[6]: ""
-  uio[7]: ""
+  uio[0]: "A NAND B"
+  uio[1]: "A NOR B"
+  uio[2]: "A XNOR B"
+  uio[3]: "NOT A"
+  uio[4]: "NOT B"
+  uio[5]: "A AND (~B)"
+  uio[6]: "(~A) AND B"
+  uio[7]: "CLK out (divided slow)"
 
 # Do not change!
 yaml_version: 6

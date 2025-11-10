@@ -3,11 +3,14 @@
 This design creates **two independent PWM channels** (each with a complementary output), and their duty cycles + alignment modes are set by an SPI interface.
 
 - UI pins:
-  - `ui_in[0]` = system clock
+  - `ui_in[0]` = internal chip clock (also routed to an output pin for probing)
   - `ui_in[1]` = SPI SCLK
   - `ui_in[2]` = SPI MOSI
   - `ui_in[3]` = SPI SS (active low)
   - `ui_in[4]` = async reset (active high)
+  - `ui_in[5]` = extra test logic input A
+  - `ui_in[6]` = extra test logic input B
+  - `ui_in[7]` = extra test logic input C (currently unused in logic)
 
 Internally each PWM channel can work in:
 - **edge–aligned** mode: up counter
@@ -17,11 +20,7 @@ Duty is 4 bits (0–15).
 SPI writes 5 bits per channel: 4 bits duty + 1 bit mode.  
 Order: first 5 bits configure PWM1, the next 5 bits configure PWM2.
 
-Outputs:
-- `uo[0]` = PWM1
-- `uo[1]` = PWM1 inverted
-- `uo[2]` = PWM2
-- `uo[3]` = PWM2 inverted
+In addition to the PWM outputs, **all other unused outputs** (uo + uio) have been assigned to simple logic operations based on A/B test inputs. This allows validating silicon gates easily with a scope or logic analyzer. Also, an internal divided clock is made available at one pin for slower visual debugging.
 
 ---
 
@@ -44,13 +43,15 @@ Outputs:
 Example: set PWM1=8/15 center and PWM2=4/15 edge  
 - send: `1000 1` then `0100 0`
 
-4) Observe the four outputs on the logic analyzer or scope.  
+4) Observe the four PWM outputs on the logic analyzer or scope.  
 They will update every time a full 5-bit frame is clocked into each channel.
+
+5) Place test vectors on `ui_in[5]` and `ui_in[6]` (A/B) and observe all the gate-level outputs to verify correct logic function on silicon.
 
 ---
 
 ## External hardware
 
-No external hardware is required.
+No external hardware is required for basic validation.
 
-(If desired, this can drive H-bridge gate drivers or LED loads, but this is optional and not required for functional demonstration.)
+(If desired, PWM can drive H-bridge gate drivers, LEDs, etc., but not required for functional demonstration.)
