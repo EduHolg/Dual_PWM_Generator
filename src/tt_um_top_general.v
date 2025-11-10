@@ -71,14 +71,7 @@ module tt_um_top_general (
   //  - Raw clk on uo_out[7]
   //  - Divided clock on uio_out[7] (slow for LEDs/logic probe)
   // ----------------------------
-  reg [23:0] clk_div;  // adjust width as needed for your board
-  always @(posedge clk or negedge rst_n) begin
-    if (!rst_n)
-      clk_div <= 24'd0;
-    else
-      clk_div <= clk_div + 1'b1;
-  end
-  wire slow_clk = clk_div[23]; // very slow tap
+ 
 
   // ----------------------------
   // Dedicated outputs
@@ -104,7 +97,7 @@ module tt_um_top_general (
   assign uio_out[4] = not_b;       // NOT B
   assign uio_out[5] = a_and_n_b;   // A & ~B
   assign uio_out[6] = n_a_and_b;   // ~A & B
-  assign uio_out[7] = slow_clk;    // divided clock
+  assign uio_out[7] = 1'b1;    // divided clock
 
   // Drive all uio as outputs
   assign uio_oe = 8'hFF;
