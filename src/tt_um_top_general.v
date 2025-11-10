@@ -97,7 +97,7 @@ module tt_um_top_general (
   assign uio_out[4] = not_b;       // NOT B
   assign uio_out[5] = a_and_n_b;   // A & ~B
   assign uio_out[6] = n_a_and_b;   // ~A & B
-  assign uio_out[7] = 1'b1;    // divided clock
+  assign uio_out[7] = 1'b1;    // VDD
 
   // Drive all uio as outputs
   assign uio_oe = 8'hFF;
